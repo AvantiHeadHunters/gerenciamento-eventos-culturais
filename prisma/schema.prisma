@@ -37,7 +37,7 @@ model Location {
   address   String  @db.VarChar(355)
   zip_code  String  @db.VarChar(10)
   city      String  @db.VarChar(255)
-  state     State
+  state     State   @default(AC)
   link_maps String? @db.VarChar(300)
 
   event Event[]
