@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,4 +5,72 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String   @db.VarChar(255)
+  description String   @db.VarChar(512)
+  date        DateTime
+  category_id Int
+  location_id Int
+
+  category Category @relation(fields: [category_id], references: [id])
+  location Location @relation(fields: [location_id], references: [id])
+
+  @@map("events")
+}
+
+model Category {
+  id          Int     @id @default(autoincrement())
+  name        String  @db.VarChar(255)
+  description String? @db.VarChar(512)
+
+  event Event[]
+
+  @@map("categories")
+}
+
+model Location {
+  id        Int     @id @default(autoincrement())
+  name      String  @db.VarChar(255)
+  address   String  @db.VarChar(355)
+  zip_code  String  @db.VarChar(10)
+  city      String  @db.VarChar(255)
+  state     State   @default(AC)
+  link_maps String? @db.VarChar(300)
+
+  event Event[]
+
+  @@map("locations")
+}
+
+enum State {
+  AC
+  AL
+  AP
+  AM
+  BA
+  CE
+  DF
+  ES
+  GO
+  MA
+  MT
+  MS
+  MG
+  PA
+  PB
+  PR
+  PE
+  PI
+  RJ
+  RN
+  RS
+  RO
+  RR
+  SC
+  SP
+  SE
+  TO
 }
