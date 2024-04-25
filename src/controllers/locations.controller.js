@@ -3,7 +3,7 @@ import { prismaClient } from "../database/prisma.client.js";
 export const readAllLocations = async (request, response) => {
   const locations = await prismaClient.location.findMany();
 
-  response.status(200).json(locations);
+  return response.status(200).json(locations);
 };
 
 export const readLocationById = async (request, response) => {
@@ -31,7 +31,7 @@ export const createLocation = async (request, response) => {
     },
   });
 
-  response.status(201).json(location);
+  return response.status(201).json(location);
 };
 
 export const updateLocation = async (request, response) => {
@@ -64,5 +64,5 @@ export const deleteLocation = async (request, response) => {
     },
   });
 
-  response.status(204).send();
+  return response.status(204).send();
 };
