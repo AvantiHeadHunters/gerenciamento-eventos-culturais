@@ -12,11 +12,11 @@ model Event {
   name        String   @db.VarChar(255)
   description String   @db.VarChar(512)
   date        DateTime
-  category_id Int
-  location_id Int
+  category_id Int?
+  location_id Int?
 
-  category Category @relation(fields: [category_id], references: [id])
-  location Location @relation(fields: [location_id], references: [id])
+  category Category? @relation(fields: [category_id], references: [id])
+  location Location? @relation(fields: [location_id], references: [id])
 
   @@map("events")
 }
