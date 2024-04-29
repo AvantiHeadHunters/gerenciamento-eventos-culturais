@@ -1,6 +1,6 @@
 import { prismaClient } from "../database/prisma.client.js";
 
-export const readAllCategories = async (request, response) => {
+export const readAllCategories = async (_request, response) => {
   const categories = await prismaClient.category.findMany();
 
   return response.status(200).json(categories);
@@ -15,8 +15,6 @@ export const readCategoryById = async (request, response) => {
       include: { event: true },
     });
 
-    if (!category)
-      return response.status(404).json({ error: "Category not found" });
     return response.status(200).json(category);
   } catch (error) {
     return response.status(500).json({ error: "Internal server error" });
