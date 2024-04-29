@@ -5,6 +5,4 @@ import { eventsRouter } from "./events.router.js";
 
 export const routes = Router();
 
-routes.use(categoriesRouter);
-routes.use(locationsRouter);
-routes.use(eventsRouter);
+routes.use(eventsRouter, locationsRouter, categoriesRouter);
