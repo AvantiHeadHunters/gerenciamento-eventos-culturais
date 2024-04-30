@@ -28,8 +28,6 @@ export const readEventById = async (request, response) => {
         },
       }
     });
-
-    if (!event) return response.status(404).json({ error: "Event not found" });
     return response.status(200).json(event);
   } catch (error) {
     console.log(error);
