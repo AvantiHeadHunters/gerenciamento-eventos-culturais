@@ -14,9 +14,11 @@ model Event {
   date        DateTime
   category_id Int?
   location_id Int?
+  user_id     Int
 
   category Category? @relation(fields: [category_id], references: [id])
   location Location? @relation(fields: [location_id], references: [id])
+  user     User      @relation(fields: [user_id], references: [id])
 
   @@map("events")
 }
@@ -43,6 +45,18 @@ model Location {
   event Event[]
 
   @@map("locations")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  name     String  @db.VarChar(255)
+  email    String  @db.VarChar(200)
+  password String  @db.VarChar(300)
+  isAdmin  Boolean @default(false)
+
+  event Event[]
+
+  @@map("users")
 }
 
 enum State {
