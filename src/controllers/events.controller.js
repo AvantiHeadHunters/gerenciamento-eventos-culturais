@@ -1,9 +1,40 @@
 import { prismaClient } from "../database/prisma.client.js";
 
-export const readAllEvents = async (_request, response) => {
-  const events = await prismaClient.event.findMany();
+export const readAllEvents = async (request, response) => {
 
+   try{
+   const {category_id, location_id, date} = request.query;
+
+  if(date){ 
+
+   const queryDay = new Date(date).setHours(23, 59, 59, 59);
+   const nextDay = new Date(queryDay);
+   nextDay.setDate(nextDay.getDate() + 1);
+  
+  const events = await prismaClient.event.findMany({
+   where:{
+      category_id: Number(category_id) || undefined,
+      location_id: Number(location_id) || undefined,
+      date: {
+         lt: nextDay,
+         gte: new Date(queryDay),
+      }
+   },
+  });  
   return response.status(200).json(events);
+  }else{
+   const events = await prismaClient.event.findMany({
+      where:{
+         category_id: Number(category_id) || undefined,
+         location_id: Number(location_id) || undefined,
+      },
+     });
+     return response.status(200).json(events);
+  }
+}catch(error){
+   console.log(error)
+   return response.status(500).send();
+}
 };
 
 export const readEventById = async (request, response) => {
@@ -35,6 +66,7 @@ export const createEvent = async (request, response) => {
   try {
     const { name, description, date, location_id, category_id } = request.body;
     const isoDate = new Date(date).toISOString();
+
 
     const event = await prismaClient.event.create({
       data: {
