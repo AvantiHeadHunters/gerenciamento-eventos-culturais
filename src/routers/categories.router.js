@@ -7,11 +7,12 @@ import {
   deleteCategory,
 } from "../controllers/categories.controller.js";
 import { verifyCategoryExists } from "../middlewares/categories.middleware.js";
+import authorizationMiddleware from "../middlewares/authorization.middleware.js";
 
 export const categoriesRouter = Router();
 
 categoriesRouter.get("/categories", readAllCategories);
-categoriesRouter.post("/category", createCategory);
+categoriesRouter.post("/category", authorizationMiddleware , createCategory);
 
 categoriesRouter.use("/category/:id", verifyCategoryExists);
 categoriesRouter.get("/category/:id", readCategoryById);

@@ -7,11 +7,12 @@ import {
     deleteEvent,
 } from "../controllers/events.controller.js";
 import { verifyEventExists } from "../middlewares/events.middleware.js";
+import authorizationMiddleware from "../middlewares/authorization.middleware.js";
 
 export const eventsRouter = Router();
 
 eventsRouter.get("/events", readAllEvents);
-eventsRouter.post("/event", createEvent);
+eventsRouter.post("/event", authorizationMiddleware, createEvent);
 
 eventsRouter.use("/event/:id", verifyEventExists);
 eventsRouter.get("/event/:id", readEventById);
