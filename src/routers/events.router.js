@@ -7,7 +7,6 @@ import {
   deleteEvent,
 } from "../controllers/events.controller.js";
 import { verifyEventExists } from "../middlewares/events.middleware.js";
-import authorizationMiddleware from "../middlewares/authorization.middleware.js";
 import { hasAuthorization } from "../middlewares/auth.middleware.js";
 
 export const eventsRouter = Router();
