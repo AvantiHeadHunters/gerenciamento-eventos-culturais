@@ -1,9 +1,33 @@
 import { prismaClient } from "../database/prisma.client.js";
 
-export const readAllEvents = async (_request, response) => {
-  const events = await prismaClient.event.findMany();
+export const readAllEvents = async (request, response) => {
+  try {
+    const { category_id, location_id, date } = request.query;
 
-  return response.status(200).json(events);
+    if (date) {
+      const isoDate = new Date(date).toISOString();
+
+      const events = await prismaClient.event.findMany({
+        where: {
+          category_id: Number(category_id) || undefined,
+          location_id: Number(location_id) || undefined,
+          date: isoDate,
+        },
+      });
+      return response.status(200).json(events);
+    } else {
+      const events = await prismaClient.event.findMany({
+        where: {
+          category_id: Number(category_id) || undefined,
+          location_id: Number(location_id) || undefined,
+        },
+      });
+      return response.status(200).json(events);
+    }
+  } catch (error) {
+    console.log(error);
+    return response.status(500).send();
+  }
 };
 
 export const readEventById = async (request, response) => {
@@ -21,19 +45,18 @@ export const readEventById = async (request, response) => {
             state: true,
           },
         },
-      }
+      },
     });
-
-    if (!event) return response.status(404).json({ error: "Event not found" });
     return response.status(200).json(event);
   } catch (error) {
+    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const createEvent = async (request, response) => {
   try {
-    const { name, description, date, location_id, category_id } = request.body;
+    const { name, description, date, locationId, categoryId } = request.body;
     const isoDate = new Date(date).toISOString();
 
     const event = await prismaClient.event.create({
@@ -41,13 +64,14 @@ export const createEvent = async (request, response) => {
         name,
         description,
         date: isoDate,
-        location_id: Number(location_id), 
-        category_id: Number(category_id)
+        location_id: Number(locationId),
+        category_id: Number(categoryId),
       },
     });
 
     return response.status(201).json(event);
   } catch (error) {
+    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -55,7 +79,8 @@ export const createEvent = async (request, response) => {
 export const updateEvent = async (request, response) => {
   try {
     const { id } = request.params;
-    const { name, description, date, location_id, category_id } = request.body;
+    const { name, description, date, locationId, categoryId } = request.body;
+    const isoDate = new Date(date).toISOString();
 
     const event = await prismaClient.event.update({
       where: {
@@ -64,26 +89,32 @@ export const updateEvent = async (request, response) => {
       data: {
         name,
         description,
-        date,
-        location_id: Number(location_id),
-        category_id: Number(category_id)
+        date: isoDate,
+        location_id: Number(locationId),
+        category_id: Number(categoryId),
       },
     });
 
     return response.status(200).json(event);
   } catch (error) {
+    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
 
 export const deleteEvent = async (request, response) => {
-  const { id } = request.params;
+  try {
+    const { id } = request.params;
 
-  await prismaClient.event.delete({
-    where: {
-      id: Number(id),
-    },
-  });
+    await prismaClient.event.delete({
+      where: {
+        id: Number(id),
+      },
+    });
 
-  return response.status(204).send();
+    return response.status(204).send();
+  } catch (error) {
+    console.log(error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
 };
