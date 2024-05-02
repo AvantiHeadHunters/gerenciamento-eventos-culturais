@@ -32,7 +32,15 @@ export const createUser = async (request, response) => {
 
 export const readAllUsers = async (_request, response) => {
   try {
-    const users = await prismaClient.user.findMany();
+    const users = await prismaClient.user.findMany({
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: false,
+        isAdmin: true,
+      },
+    });
 
     return response.status(200).json(users);
   } catch (error) {
