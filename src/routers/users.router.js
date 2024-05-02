@@ -3,6 +3,7 @@ import {
   createUser,
   readAllUsers,
   readUserById,
+  updateUser,
 } from "../controllers/users.controllers.js";
 import { sign } from "../controllers/login.controller.js";
 import {
@@ -10,7 +11,6 @@ import {
   verifyUserExists,
 } from "../middlewares/users.middleware.js";
 import {
-  hasAuthorization,
   isAutenticated,
 } from "../middlewares/auth.middleware.js";
 
@@ -24,3 +24,4 @@ usersRouter.post("/user", verifyEmailExists, createUser);
 
 usersRouter.use("/user/:id", verifyUserExists, isAutenticated);
 usersRouter.get("/user/:id", readUserById);
+usersRouter.put("/user/:id", updateUser);
