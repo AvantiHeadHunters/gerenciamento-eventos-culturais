@@ -24,7 +24,12 @@ export const sign = async (request, response) => {
       { expiresIn: "2h" }
     );
 
-    return response.status(200).json(token, { user: user.email });
+    return response.status(200).json({
+      token: token,
+      userId: user.id,
+      email: user.email,
+      isAdmin: user.isAdmin,
+    });
   } catch (error) {
     console.log(error);
     response.status(500).send();

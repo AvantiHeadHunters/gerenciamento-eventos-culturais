@@ -6,7 +6,7 @@ export const verifyEmailExists = async (request, response, next) => {
   const user = await prismaClient.user.findUnique({ where: { email } });
 
   if (user) {
-    return response.status(409).json({ error: "Email already exist" });
+    return response.status(409).json({ error: "Email already exists" });
   }
 
   return next();

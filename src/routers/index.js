@@ -7,5 +7,3 @@ import { usersRouter } from "./users.router.js";
 export const routes = Router();
 
 routes.use(categoriesRouter, locationsRouter, eventsRouter, usersRouter);
-
-
