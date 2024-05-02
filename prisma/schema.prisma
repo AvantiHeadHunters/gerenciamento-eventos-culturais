@@ -50,7 +50,7 @@ model Location {
 model User {
   id       Int     @id @default(autoincrement())
   name     String  @db.VarChar(255)
-  email    String  @db.VarChar(200)
+  email    String  @unique @db.VarChar(200)
   password String  @db.VarChar(300)
   isAdmin  Boolean @default(false)
 
