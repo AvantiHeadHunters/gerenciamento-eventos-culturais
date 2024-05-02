@@ -97,3 +97,20 @@ export const updateUser = async (request, response) => {
     return response.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const deleteUser = async (request, response) => {
+  try {
+    const { id } = request.params;
+
+    await prismaClient.user.delete({
+      where: {
+        id: Number(id),
+      },
+    });
+
+    return response.status(204).send();
+  } catch (error) {
+    console.log(error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
+};
