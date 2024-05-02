@@ -1,20 +1,21 @@
 import { Router } from "express";
 import {
-    readAllEvents,
-    readEventById,
-    createEvent,
-    updateEvent,
-    deleteEvent,
+  readAllEvents,
+  readEventById,
+  createEvent,
+  updateEvent,
+  deleteEvent,
 } from "../controllers/events.controller.js";
 import { verifyEventExists } from "../middlewares/events.middleware.js";
 import authorizationMiddleware from "../middlewares/authorization.middleware.js";
+import { hasAuthorization } from "../middlewares/auth.middleware.js";
 
 export const eventsRouter = Router();
 
 eventsRouter.get("/events", readAllEvents);
-eventsRouter.post("/event", authorizationMiddleware, createEvent);
+eventsRouter.post("/event", hasAuthorization, createEvent);
 
 eventsRouter.use("/event/:id", verifyEventExists);
 eventsRouter.get("/event/:id", readEventById);
-eventsRouter.put("/event/:id", updateEvent);
-eventsRouter.delete("/event/:id", deleteEvent);
+eventsRouter.put("/event/:id", hasAuthorization, updateEvent);
+eventsRouter.delete("/event/:id", hasAuthorization, deleteEvent);

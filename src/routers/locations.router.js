@@ -7,13 +7,14 @@ import {
   updateLocation,
 } from "../controllers/locations.controller.js";
 import { verifyLocationExists } from "../middlewares/locations.middleware.js";
+import { hasAuthorization } from "../middlewares/auth.middleware.js";
 
 export const locationsRouter = Router();
 
 locationsRouter.get("/locations", readAllLocations);
-locationsRouter.post("/location", createLocation);
+locationsRouter.post("/location", hasAuthorization, createLocation);
 
 locationsRouter.use("/location/:id", verifyLocationExists);
 locationsRouter.get("/location/:id", readLocationById);
-locationsRouter.put("/location/:id", updateLocation);
-locationsRouter.delete("/location/:id", deleteLocation);
+locationsRouter.put("/location/:id", hasAuthorization, updateLocation);
+locationsRouter.delete("/location/:id", hasAuthorization, deleteLocation);
