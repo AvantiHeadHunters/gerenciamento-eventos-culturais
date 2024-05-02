@@ -3,7 +3,7 @@ import { prismaClient } from "../database/prisma.client.js";
 export const verifyEmailExists = async (request, response, next) => {
   const { email } = request.body;
 
-  const user = await prismaClient.user.findUnique({ where: { email } });
+  const user = await prismaClient.user.findFirst({ where: { email } });
 
   if (user) {
     return response.status(409).json({ error: "Email already exists" });

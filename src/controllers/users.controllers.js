@@ -56,3 +56,44 @@ export const readUserById = async (request, response) => {
     return response.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const updateUser = async (request, response) => {
+  try {
+    const { id } = request.params;
+    const { name, email, password, isAdmin } = request.body;
+
+    const cryptPass = bcrypt.hashSync(password, 10);
+
+    const existingUser = await prismaClient.user.findFirst({
+      where: {
+        AND: [{ email }, { NOT: { id: Number(id) } }],
+      },
+    });
+
+    if (existingUser) {
+      return response.status(400).json({ error: "Email already in use" });
+    }
+
+    const user = await prismaClient.user.update({
+      where: { id: Number(id) },
+      data: {
+        name,
+        email,
+        password: cryptPass,
+        isAdmin,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        password: false,
+        isAdmin: true,
+      },
+    });
+
+    return response.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
+};
