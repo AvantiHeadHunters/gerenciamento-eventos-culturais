@@ -56,7 +56,8 @@ export const readEventById = async (request, response) => {
 
 export const createEvent = async (request, response) => {
   try {
-    const { name, description, date, locationId, categoryId } = request.body;
+    const { name, description, date, locationId, categoryId, userId } =
+      request.body;
     const isoDate = new Date(date).toISOString();
 
     const event = await prismaClient.event.create({
@@ -66,6 +67,7 @@ export const createEvent = async (request, response) => {
         date: isoDate,
         location_id: Number(locationId),
         category_id: Number(categoryId),
+        user_id: Number(userId),
       },
     });
 

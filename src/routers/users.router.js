@@ -11,14 +11,16 @@ import {
   verifyEmailExists,
   verifyUserExists,
 } from "../middlewares/users.middleware.js";
-import { isAutenticated } from "../middlewares/auth.middleware.js";
+import {
+  hasAuthorization,
+  isAutenticated,
+} from "../middlewares/auth.middleware.js";
 
 export const usersRouter = Router();
 
 usersRouter.post("/user/login", sign);
 
-// usersRouter.get("/users", hasAuthorization, readAllUsers);
-usersRouter.get("/users", readAllUsers);
+usersRouter.get("/users", hasAuthorization, readAllUsers);
 usersRouter.post("/user", verifyEmailExists, createUser);
 
 usersRouter.use("/user/:id", verifyUserExists, isAutenticated);
