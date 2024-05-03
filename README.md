@@ -218,3 +218,171 @@
             </tr>
         </tbody>
     </table>
+
+<h2><strong>Documentação API</strong></h2>
+
+<h3>Rotas de Locations</h3>
+<details>
+<summary>Resposta <b>GET /locations</b></summary>
+<br>
+<ul>
+    <li>Retorna todos os locais cadastrados.</li>
+    <li>Requisição não necessita de autenticação.</li>
+</ul>
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+    [
+        {
+            "id": 1,
+            "name": "Casa de festa teste",
+            "address": "Rua 1",
+            "zip_code": "12345670",
+            "city": "Rio de Janeiro",
+            "state": "RJ",
+            "link_maps": null
+            },
+            {
+              "id": 2,
+              "name": "Teatro de teste",
+              "address": "Avenida 2",
+              "zip_code": "12345680",
+              "city": "Fortaleza",
+              "state": "CE",
+              "link_maps": "https://www.google.com/maps"
+            }
+    ]
+```
+</details>
+
+<details>
+<summary>Resposta <b>GET /location/:id</b></summary>
+<ul>
+    <li>Retorna um local específico cadastrado.</li>
+    <li>Requisição não necessita de autenticação.</li>
+    <li> Caso o local não seja encontrado, a resposta será um status 404.</li>
+</ul>
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+    
+```json
+        {
+            "id": 1,
+            "name": "Casa de festa teste",
+            "address": "Rua 1",
+            "zip_code": "12345670",
+            "city": "Rio de Janeiro",
+            "state": "RJ",
+            "link_maps": null
+        }
+```
+<p style="color:gray;">Exemplo de local não encontrado, status 404:</p>
+
+```json
+    {
+        "message": "Location not found"
+    }
+```
+</details>
+
+<details>
+<summary>Requisição e Resposta <b>POST /location</b></summary>
+<ul>
+    <li>Cria um local.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 201.</li>
+    <li> Caso a requisição seja mal sucedida, a resposta será um status 401.</li>
+</ul>
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+    {
+        "name": "Casa de festa teste",
+        "address": "Rua 1",
+        "zip_code": "12345670",
+        "city": "Rio de Janeiro",
+        "state": "RJ",
+        "link_maps": null
+    }
+```
+<p style="color:gray;">Exemplo de sucesso na resposta, status 201:</p>
+
+```json
+    {
+        "id": 1,
+        "name": "Casa de festa teste",
+        "address": "Rua 1",
+        "zip_code": "12345670",
+        "city": "Rio de Janeiro",
+        "state": "RJ",
+        "link_maps": null
+    }
+```
+<p style="color:gray;">Exemplo de falha na resposta, status 401:</p>
+
+```json
+    {
+        "message": "Unauthorized"
+    }
+```
+</details>
+
+<details>
+<summary>Requisição e Resposta <b>PUT /location/:id</b></summary>
+<ul>
+    <li>Atualiza um local.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 200.</li>
+    <li> Caso a requisição seja mal sucedida, a resposta será um status 401.</li>
+</ul>
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+    {
+        "name": "Casa de festa",
+        "address": "Rua 1",
+        "zip_code": "12345670",
+        "city": "Rio de Janeiro",
+        "state": "RJ",
+        "link_maps": null
+    }
+```
+
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+    {
+        "id": 1,
+        "name": "Casa de festa",
+        "address": "Rua 1",
+        "zip_code": "12345670",
+        "city": "Rio de Janeiro",
+        "state": "RJ",
+        "link_maps": null
+    }
+```
+
+<p style="color:gray;">Exemplo de falha na resposta, status 401:</p>
+
+```json
+    {
+        "message": "Unauthorized"
+    }
+```
+</details>
+
+<details>
+<summary>Resposta <b>DELETE /location/:id</b></summary>
+<ul>
+    <li>Deleta um local.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 204.</li>
+</ul>
+
+<p style="color:gray;">Exemplo de fala na resposta, status 401:</p>
+
+```json
+    {
+        "message": "Unauthorized"
+    }
+```
+</details>
