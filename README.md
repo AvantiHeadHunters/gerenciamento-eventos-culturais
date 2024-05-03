@@ -320,7 +320,7 @@
 <ul>
     <li>Retorna um usuário específico cadastrado.</li>
     <li>Requisição necessita de autenticação.</li>
-    <li> Caso o local não seja encontrado, a resposta será um status 404.</li>
+    <li> Caso o usuário não seja encontrado, a resposta será um status 404.</li>
 </ul>
 <p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
 
@@ -639,7 +639,7 @@
 
 </details>
 
-<h3>Rotas de Locations</h3>
+<h3>Rotas de Locais</h3>
 <details>
 <summary>Resposta <b>GET /locations</b></summary>
 <br>
@@ -813,7 +813,7 @@
 
 </details>
 
-<h3>Rotas de Categories</h3>
+<h3>Rotas de Categorias</h3>
 <details>
 <summary>Resposta <b>GET /categories</b></summary>
 <br>
