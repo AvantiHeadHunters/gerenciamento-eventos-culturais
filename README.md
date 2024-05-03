@@ -279,6 +279,43 @@
 </details>
 
 <details>
+<summary>Resposta <b>POST /user/login</b></summary>
+<ul>
+    <li>Permite que o usuário faça o login, gerando um token de autenticação.</li>
+    <li>Requisição não necessita de autenticação.</li>
+    <li> Caso o usuário erre o email ou a senha, a resposta será um status 401.</li>
+</ul>
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+{
+  "email": "joao@mail.com",
+  "password": "1234"
+}
+```
+
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoyLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE3MTQ3NjUzOTMsImV4cCI6MTcxNDc3MjU5M30.WFnIqdS3sFyzTdunq35va9FvdnL0F4yF6zwEbgjc2uo",
+  "userId": 2,
+  "email": "joao@mail.com",
+  "isAdmin": true
+}
+```
+
+<p style="color:gray;">Exemplo de requisição com credenciais erradas, status 401:</p>
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+</details>
+
+<details>
 <summary>Resposta <b>GET /user/:id</b></summary>
 <ul>
     <li>Retorna um usuário específico cadastrado.</li>
@@ -418,6 +455,185 @@
 ```json
 {
   "message": "Token Missing"
+}
+```
+
+</details>
+
+<h3>Rotas de Eventos</h3>
+<details>
+<summary>Resposta <b>GET /events</b></summary>
+<br>
+<ul>
+    <li>Retorna todos os eventos cadastrados.</li>
+    <li>Requisição não necessita de autenticação.</li>
+</ul>
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+
+        {
+            "id": 1,
+            "name": "Evento 1",
+            "description": "Descrição do Evento",
+            "date": "2024-04-30T12:00:00.000Z",
+            "category_id": 1,
+            "location_id": 1,
+            "user_id": 6
+        },
+        {
+            "id": 2,
+            "name": "Evento 2",
+            "description": "Descrição do Evento",
+            "date": "2024-04-30T12:00:00.000Z",
+            "category_id": 1,
+            "location_id": 1,
+            "user_id": 6
+        }
+```
+
+</details>
+
+<details>
+<summary>Resposta <b>GET /event/:id</b></summary>
+<ul>
+    <li>Retorna um evento específico cadastrado.</li>
+    <li>Requisição não necessita de autenticação.</li>
+    <li> Caso o evento não seja encontrado, a resposta será um status 404.</li>
+</ul>
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+{
+  "id": 2,
+  "name": "Evento 2",
+  "description": "Descrição do Evento",
+  "date": "2024-04-30T12:00:00.000Z",
+  "category_id": 1,
+  "location_id": 1,
+  "user_id": 6,
+  "location": {
+    "name": "Novo local",
+    "address": "Rua X",
+    "city": "Cidade",
+    "state": "AC"
+  }
+}
+```
+
+<p style="color:gray;">Exemplo de evento não encontrado, status 404:</p>
+
+```json
+{
+  "message": "Event not found"
+}
+```
+
+</details>
+
+<details>
+<summary>Requisição e Resposta <b>POST /event</b></summary>
+<ul>
+    <li>Cria um evento.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 201.</li>
+    <li> Caso a requisição seja mal sucedida, a resposta será um status 401.</li>
+</ul>
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+{
+  "name": "Evento 3",
+  "description": "Descrição do Evento",
+  "date": "2024-04-30T12:00:00Z",
+  "categoryId": 1,
+  "locationId": 1,
+  "userId": 6
+}
+```
+
+<p style="color:gray;">Exemplo de sucesso na resposta, status 201:</p>
+
+```json
+{
+  "id": 3,
+  "name": "Evento 3",
+  "description": "Descrição do Evento",
+  "date": "2024-04-30T12:00:00.000Z",
+  "category_id": 1,
+  "location_id": 1,
+  "user_id": 6
+}
+```
+
+<p style="color:gray;">Exemplo de falha por não autorização, status 401:</p>
+
+```json
+{
+  "message": "Forbidden"
+}
+```
+
+</details>
+
+<details>
+<summary>Requisição e Resposta <b>PUT /event/:id</b></summary>
+<ul>
+    <li>Atualiza um evento.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 200.</li>
+    <li> Caso a requisição seja mal sucedida, a resposta será um status 401.</li>
+</ul>
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+{
+  "name": "Evento modificado",
+  "description": "Descrição do Evento modificado",
+  "date": "2024-01-28",
+  "categoryId": 1,
+  "locationId": 1,
+  "userId": 6
+}
+```
+
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+{
+  "id": 4,
+  "name": "Evento modificado",
+  "description": "Descrição do Evento modificado",
+  "date": "2024-01-28T00:00:00.000Z",
+  "category_id": 1,
+  "location_id": 1,
+  "user_id": 6
+}
+```
+
+<p style="color:gray;">Exemplo de falha por não autorização, status 401:</p>
+
+```json
+{
+  "message": "Forbidden"
+}
+```
+
+</details>
+
+<details>
+<summary>Resposta <b>DELETE /event/:id</b></summary>
+<ul>
+    <li>Deleta um evento.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 204.</li>
+</ul>
+
+<p style="color:gray;">Exemplo de falha por não autorização, status 401:</p>
+
+```json
+{
+  "message": "Forbidden"
 }
 ```
 
@@ -596,3 +812,151 @@
 ```
 
 </details>
+
+<h3>Rotas de Categories</h3>
+<details>
+<summary>Resposta <b>GET /categories</b></summary>
+<br>
+<ul>
+    <li>Retorna todas as categorias cadastradas.</li>
+    <li>Requisição não necessita de autenticação.</li>
+</ul>
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+[
+  {
+    "id": 1,
+    "name": "Show"
+  },
+  {
+    "id": 2,
+    "name": "Teatro"
+  }
+]
+```
+
+</details>
+
+<details>
+<summary>Resposta <b>GET /category/:id</b></summary>
+<ul>
+    <li>Retorna uma categoria específica cadastrada.</li>
+    <li>Requisição não necessita de autenticação.</li>
+    <li> Caso a categoria não seja encontrada, a resposta será um status 404.</li>
+</ul>
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+    
+```json
+        {
+            "id": 1,
+            "name": "Show"
+        }
+```
+<p style="color:gray;">Exemplo de categoria não encontrada, status 404:</p>
+
+```json
+{
+  "error": "Category not found"
+}
+```
+
+</details>
+
+<details>
+<summary>Requisição e Resposta <b>POST /category</b></summary>
+<ul>
+    <li>Cria uma categoria.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 201.</li>
+    <li> Caso a requisição seja mal sucedida, a resposta será um status 401.</li>
+</ul>
+
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+{
+  "name": "Show"
+}
+```
+
+<p style="color:gray;">Exemplo de sucesso na resposta, status 201:</p>
+
+```json
+{
+  "id": 1,
+  "name": "Show"
+}
+```
+
+<p style="color:gray;">Exemplo de falha na resposta, status 401:</p>
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+</details>
+
+<details>
+<summary>Requisição e Resposta <b>PUT /category/:id</b></summary>
+<ul>
+    <li>Atualiza uma categoria.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 200.</li>
+    <li> Caso a requisição seja mal sucedida, a resposta será um status 401.</li>
+</ul>
+
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+{
+  "name": "Esporte"
+}
+```
+
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+{
+  "id": 1,
+  "name": "Esporte"
+}
+```
+
+<p style="color:gray;">Exemplo de falha na resposta, status 401:</p>
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+</details>
+
+<details>
+<summary>Resposta <b>DELETE /category/:id</b></summary>
+<ul>
+    <li>Deleta uma categoria.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 204.</li>
+</ul>
+
+<p style="color:gray;">Exemplo de fala na resposta, status 401:</p>
+
+```json
+{
+  "message": "Unauthorized"
+}
+```
+
+</details>
+
+<h2>Contribuidores</h2>
+<ul>
+    <li><a href="https://github.com/nicegrrrl">Alana Maia</a></li>
+    <li><a href="https://github.com/HelenAndrade">Hélen Andrade</a></li>
+    <li><a href="https://github.com/repository-italo">Ítalo Pinheiro</a></li>
+    <li><a href="https://github.com/LobatoDiogo">José Diogo Lobato</a></li>
+    <li><a href="https://github.com/Gabrielx11">Lucas Gabriel Oliveira</a></li>
