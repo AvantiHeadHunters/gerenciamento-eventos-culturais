@@ -6,7 +6,6 @@ export const readAllCategories = async (_request, response) => {
 
     return response.status(200).json(categories);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -22,7 +21,6 @@ export const readCategoryById = async (request, response) => {
 
     return response.status(200).json(category);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -40,7 +38,6 @@ export const createCategory = async (request, response) => {
 
     return response.status(201).json(category);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -62,7 +59,6 @@ export const updateCategory = async (request, response) => {
 
     return response.status(200).json(category);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -79,7 +75,6 @@ export const deleteCategory = async (request, response) => {
 
     return response.status(204).send();
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };

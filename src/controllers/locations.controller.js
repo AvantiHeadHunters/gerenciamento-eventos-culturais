@@ -5,7 +5,6 @@ export const readAllLocations = async (_request, response) => {
     const locations = await prismaClient.location.findMany();
     return response.status(200).json(locations);
   } catch (error) {
-    console.error(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -21,7 +20,6 @@ export const readLocationById = async (request, response) => {
 
     return response.status(200).json(location);
   } catch (error) {
-    console.error(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -43,7 +41,6 @@ export const createLocation = async (request, response) => {
 
     return response.status(201).json(location);
   } catch (error) {
-    console.error(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -69,7 +66,6 @@ export const updateLocation = async (request, response) => {
 
     return response.status(200).json(location);
   } catch (error) {
-    console.error(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -86,7 +82,6 @@ export const deleteLocation = async (request, response) => {
 
     return response.status(204).send();
   } catch (error) {
-    console.error(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
