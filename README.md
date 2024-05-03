@@ -1,219 +1,113 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentação do Projeto</title>
-</head>
-<body>
-    <h2><strong>1. Tecnologias e ferramentas</strong></h2>
-    <ul>
-        <li>Express</li>
-        <li>JavaScript</li>
-        <li>React</li>
-        <li>PostgreSQL</li>
-        <li>Prisma</li>
-        <li>Insomnia</li>
-    </ul>
-    <h2><strong>2. Primeiros passos</strong></h2>
-    <ol>
-        <li>Clone o repositório em sua máquina.</li>
-        <br>
-        <li>Instale as dependências rodando o seguinte comando:
-            <pre><code>npm install</code></pre>
-        </li>
-        <li>Crie um arquivo <strong>.env</strong> e, seguindo os exemplos das variáveis de ambiente contidas no arquivo <strong>.env.example</strong>, preencha o arquivo para configurar o banco de dados pelo PostgreSQL e o JSON Web Token.</li>
-        <br>
-        <li>Crie o banco de dados localmente utilizando uma ferramenta de gestão de bancos de dados (no projeto utilizamos DBeaver).</li>
-        <br>
-        <li>Aplique as migrações para o seu banco de dados local com o seguinte comando:</li>
-         <pre><code>npx prisma migrate dev</code></pre>
-        <li>Para possibilitar o teste das rotas por meio da collection <strong>insomnia-gerenciamento-eventos-culturais-avanti</strong>, o arquivo estará disponibilizado na raiz do projeto.</li>
-        <br>
-        <li>Para rodar o projeto utilize o seguinte comando:</li>
-        <pre><code>npm start</code></pre>
-        <li>Faça as requisições HTTP atraves da ferramenta de gestão de bancos de dados, se atentando às necessidades de autenticação e autorização de cada rota.</li>
-    </ol>
-    <h2><strong>3. Diagrama de Relacionamento</strong></h2>
-    <img src="DER.png" alt="Imagem do diagrama de Relacionamento">
-    <h2></h2>
-    <h1>Rotas de Usuário</h1>
-    <table>
-        <thead>
-            <tr>
-            <th>Método</th>
-                <th>Endpoint</th>
-                <th>Responsabilidade</th>
-                <th>Autenticação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>POST</td>
-                <td>/user</td>
-                <td>Cria um usuário</td>
-                <td>Não necessita token</td>
-            </tr>
-            <tr>
-                <td>POST</td>
-                <td>/user/login</td>
-                <td>Gera o token de autenticação</td>
-                <td>Não necessita token</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/users</td>
-                <td>Lista todos os usuários</td>
-                <td>Apenas administradores</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/user/:id</td>
-                <td>Lista um usuário por id</td>
-                <td>Usuário logado</td>
-            </tr>
-            <tr>
-                <td>PUT</td>
-                <td>/user/:id</td>
-                <td>Atualiza um usuário</td>
-                <td>Usuário logado</td>
-            </tr>
-            <tr>
-                <td>DELETE</td>
-                <td>/user/:id</td>
-                <td>Deleta o usuário</td>
-                <td>Usuário logado</td>
-            </tr>
-        </tbody>
-    </table>
-    <h1>Rotas de Eventos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Método</th>
-                <th>Endpoint</th>
-                <th>Responsabilidade</th>
-                <th>Autenticação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>POST</td>
-                <td>/event</td>
-                <td>Cria um evento</td>
-                <td>Apenas administradores</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/events</td>
-                <td>Lista todos os eventos</td>
-                <td>Não necessita token</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/event/:id</td>
-                <td>Lista um evento por id</td>
-                <td>Não necessita token</td>
-            </tr>
-            <tr>
-                <td>PUT</td>
-                <td>/event/:id</td>
-                <td>Atualiza um evento</td>
-                <td>Apenas administradores</td>
-            </tr>
-            <tr>
-                <td>DELETE</td>
-                <td>/event/:id</td>
-                <td>Deleta um evento</td>
-                <td>Apenas administradores</td>
-            </tr>
-        </tbody>
-    </table>
-    <h1>Rotas de Locais</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Método</th>
-                <th>Endpoint</th>
-                <th>Responsabilidade</th>
-                <th>Autenticação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>POST</td>
-                <td>/location</td>
-                <td>Cria um local</td>
-                <td>Apenas administradores</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/locations</td>
-                <td>Lista todos os locais</td>
-                <td>Não necessita token</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/location/:id</td>
-                <td>Lista um local por id</td>
-                <td>Não necessita token</td>
-            </tr>
-            <tr>
-                <td>PUT</td>
-                <td>/location/:id</td>
-                <td>Atualiza um local</td>
-                <td>Apenas administradores</td>
-            </tr>
-            <tr>
-                <td>DELETE</td>
-                <td>/location/:id</td>
-                <td>Deleta o local</td>
-                <td>Apenas administradores</td>
-            </tr>
-        </tbody>
-        </table>
-        <h1>Rotas de Categorias</h1>
-        <table>
-        <thead>
-            <tr>
-                <th>Método</th>
-                <th>Endpoint</th>
-                <th>Responsabilidade</th>
-                <th>Autenticação</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>POST</td>
-                <td>/category</td>
-                <td>Cria uma categoria</td>
-                <td>Apenas administradores</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/categories</td>
-                <td>Lista todas as categorias</td>
-                <td>Não necessita token</td>
-            </tr>
-            <tr>
-                <td>GET</td>
-                <td>/category/:id</td>
-                <td>Lista uma categoria por id</td>
-                <td>Não necessita token</td>
-            </tr>
-            <tr>
-                <td>PUT</td>
-                <td>/category/:id</td>
-                <td>Atualiza uma categoria</td>
-                <td>Apenas administradores</td>
-            </tr>
-            <tr>
-                <td>DELETE</td>
-                <td>/category/:id</td>
-                <td>Deleta uma categoria</td>
-                <td>Apenas administradores</td>
-            </tr>
-        </tbody>
-    </table>
-</body>
-</html>
+
+#   Gerenciamento Eventos Culturais
+## Introdução
+
+Esta aplicação consiste em um cadastro de eventos Culturais, onde é visado a criação de uma plataforma robusta para o gerenciamento de eventos. A plataforma oferecerá aos organizadores de eventos a capacidade de criar e listar seus eventos de maneira eficiente. Além disso, proporcionará aos participantes a oportunidade de explorar, pesquisar e filtrar eventos com base em critérios específicos como categorias, locais e datas.
+
+# Funcionalidades
+- Criar eventos, autenticação 
+- Listar seus eventos
+- Filtrar eventos
+
+# Tecnologias utilizadas
+- NodeJS  
+- Express                     
+- Prisma
+- PostgreSQL
+- Insomnia
+- API REST
+
+# Diagrama de Relacionamento
+<img align="center" height="550" width="780" src="DER.png" alt="Imagem do diagrama de Relacionamento">
+
+# Como executar
+Antes de tudo, clone o repositório em sua máquina usando: 
+```bash
+  git clone https://github.com/AvantiHeadHunters/gerenciamento-eventos-culturais.git
+```
+Depois instale as dependências rodando o seguinte comando:
+
+```bash
+npm install
+```
+Aqui será preciso criar um arquivo `.env` seguindo o exemplo do arquivo `.env.example`.
+<br>
+Preencha o arquivo para configurar o banco de dados local. 
+
+```bash
+DATABASE_URL=postgresql://user:password@localhost:5432/nome_do_banco
+```
+
+Execute a migração do banco de dados local com o comando:
+
+```bash
+npx prisma migrate -dev
+```
+
+Inicie o servidor com o seguinte comando:
+
+```bash
+npm start
+```
+#
+
+
+ <h1> Rotas </h1>
+
+### Rotas de Usuário 
+
+#### Utilizando o Insomnia para fazer as requisições `HTTP`, abaixo estará listado as rotas e metodos para cada requisição.
+
+```http
+  http://localhost:porta/users
+```
+
+| Metodo   | Endpoint      | Responsabilidade                 |
+| :---------- | :--------- | :---------------------------------- |
+| `GET` | `/users` |`Lista todos os usuários`  |
+| `GET` | `/user/:id` |`Lista um usuário por id`  |
+| `POST` | `/user` |`Cria um usuário`  |
+| `PUT` | `/user/:id` |`Atualiza um usuário`  |
+| `DELETE` | `/user/:id` |`Deleta o usuário`  |
+
+#### Rotas de Eventos
+
+```http
+   http://localhost:porta/events
+```
+
+| Metodo   | Endpoint      | Responsabilidade                 |
+| :---------- | :--------- | :---------------------------------- |
+| `GET` | `/events` |`Lista todos os eventos`  |
+| `GET` | `/event/:id` |`Lista um evento por id`  |
+| `POST` | `/event` |`Cria um evento`  |
+| `PUT` | `/event/:id` |`Atualiza um evento	`  |
+| `DELETE` | `/event/:id` |`Deleta um evento`  |
+
+#### Rotas de Locais
+
+```http
+   http://localhost:porta/locations
+```
+
+| Metodo   | Endpoint      | Responsabilidade                 |
+| :---------- | :--------- | :---------------------------------- |
+| `GET` | `/locations` |`Lista todos os locais`  |
+| `GET` | `/location/:id` |`Lista um local por id`  |
+| `POST` | `/location` |`Cria um local`  |
+| `PUT` | `/location/:id` |`Atualiza um local	`  |
+| `DELETE` | `/location/:id` |`Deleta o local`  |
+
+#### Rotas de Categorias
+
+```http
+   http://localhost:porta/categories
+```
+
+| Metodo   | Endpoint      | Responsabilidade                 |
+| :---------- | :--------- | :---------------------------------- |
+| `GET` | `/categories` |`Lista todas as categorias`  |
+| `GET` | `/category/:id` |`Lista uma categoria por id	`  |
+| `POST` | `/category` |`Cria uma categoria`  |
+| `PUT` | `/category/:id` |`Atualiza uma categoria	`  |
+| `DELETE` | `/category/:id` |`Deleta uma categoria`  |
