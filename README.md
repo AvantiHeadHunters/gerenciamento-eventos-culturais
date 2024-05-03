@@ -218,3 +218,183 @@
             </tr>
         </tbody>
     </table>
+
+<h2><strong>Documentação API</strong></h2>
+<h3>Rotas de Eventos</h3>
+<details>
+<summary>Resposta <b>GET /events</b></summary>
+<br>
+<ul>
+    <li>Retorna todos os eventos cadastrados.</li>
+    <li>Requisição não necessita de autenticação.</li>
+</ul>
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+
+        {
+            "id": 1,
+            "name": "Evento 1",
+            "description": "Descrição do Evento",
+            "date": "2024-04-30T12:00:00.000Z",
+            "category_id": 1,
+            "location_id": 1,
+            "user_id": 6
+        },
+        {
+            "id": 2,
+            "name": "Evento 2",
+            "description": "Descrição do Evento",
+            "date": "2024-04-30T12:00:00.000Z",
+            "category_id": 1,
+            "location_id": 1,
+            "user_id": 6
+        }
+```
+
+</details>
+
+<details>
+<summary>Resposta <b>GET /event/:id</b></summary>
+<ul>
+    <li>Retorna um evento específico cadastrado.</li>
+    <li>Requisição não necessita de autenticação.</li>
+    <li> Caso o evento não seja encontrado, a resposta será um status 404.</li>
+</ul>
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+{
+  "id": 2,
+  "name": "Evento 2",
+  "description": "Descrição do Evento",
+  "date": "2024-04-30T12:00:00.000Z",
+  "category_id": 1,
+  "location_id": 1,
+  "user_id": 6,
+  "location": {
+    "name": "Novo local",
+    "address": "Rua X",
+    "city": "Cidade",
+    "state": "AC"
+  }
+}
+```
+
+<p style="color:gray;">Exemplo de evento não encontrado, status 404:</p>
+
+```json
+{
+  "message": "Event not found"
+}
+```
+
+</details>
+
+<details>
+<summary>Requisição e Resposta <b>POST /event</b></summary>
+<ul>
+    <li>Cria um evento.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 201.</li>
+    <li> Caso a requisição seja mal sucedida, a resposta será um status 401.</li>
+</ul>
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+{
+  "name": "Evento 3",
+  "description": "Descrição do Evento",
+  "date": "2024-04-30T12:00:00Z",
+  "categoryId": 1,
+  "locationId": 1,
+  "userId": 6
+}
+```
+
+<p style="color:gray;">Exemplo de sucesso na resposta, status 201:</p>
+
+```json
+{
+  "id": 3,
+  "name": "Evento 3",
+  "description": "Descrição do Evento",
+  "date": "2024-04-30T12:00:00.000Z",
+  "category_id": 1,
+  "location_id": 1,
+  "user_id": 6
+}
+```
+
+<p style="color:gray;">Exemplo de falha por não autorização, status 401:</p>
+
+```json
+{
+  "message": "Forbidden"
+}
+```
+
+</details>
+
+<details>
+<summary>Requisição e Resposta <b>PUT /event/:id</b></summary>
+<ul>
+    <li>Atualiza um evento.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 200.</li>
+    <li> Caso a requisição seja mal sucedida, a resposta será um status 401.</li>
+</ul>
+<p style="color:gray;">Exemplo de requisição:</p>
+
+```json
+{
+  "name": "Evento modificado",
+  "description": "Descrição do Evento modificado",
+  "date": "2024-01-28",
+  "categoryId": 1,
+  "locationId": 1,
+  "userId": 6
+}
+```
+
+<p style="color:gray;">Exemplo de sucesso na resposta, status 200:</p>
+
+```json
+{
+  "id": 4,
+  "name": "Evento modificado",
+  "description": "Descrição do Evento modificado",
+  "date": "2024-01-28T00:00:00.000Z",
+  "category_id": 1,
+  "location_id": 1,
+  "user_id": 6
+}
+```
+
+<p style="color:gray;">Exemplo de falha por não autorização, status 401:</p>
+
+```json
+{
+  "message": "Forbidden"
+}
+```
+
+</details>
+
+<details>
+<summary>Resposta <b>DELETE /event/:id</b></summary>
+<ul>
+    <li>Deleta um evento.</li>
+    <li>Requisição necessita de autorização.</li>
+    <li> Caso a requisição seja bem sucedida, a resposta será um status 204.</li>
+</ul>
+
+<p style="color:gray;">Exemplo de falha por não autorização, status 401:</p>
+
+```json
+{
+  "message": "Forbidden"
+}
+```
+
+</details>
