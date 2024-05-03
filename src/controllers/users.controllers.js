@@ -25,7 +25,6 @@ export const createUser = async (request, response) => {
 
     return response.status(201).json(user);
   } catch (error) {
-    console.log(error);
     response.status(500).send();
   }
 };
@@ -44,7 +43,6 @@ export const readAllUsers = async (_request, response) => {
 
     return response.status(200).json(users);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -60,7 +58,6 @@ export const readUserById = async (request, response) => {
 
     return response.status(200).json(user);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -101,7 +98,6 @@ export const updateUser = async (request, response) => {
 
     return response.status(200).json(user);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -118,7 +114,6 @@ export const deleteUser = async (request, response) => {
 
     return response.status(204).send();
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };

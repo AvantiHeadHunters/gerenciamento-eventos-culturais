@@ -31,7 +31,6 @@ export const sign = async (request, response) => {
       isAdmin: user.isAdmin,
     });
   } catch (error) {
-    console.log(error);
     response.status(500).send();
   }
 };

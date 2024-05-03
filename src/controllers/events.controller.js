@@ -25,7 +25,6 @@ export const readAllEvents = async (request, response) => {
       return response.status(200).json(events);
     }
   } catch (error) {
-    console.log(error);
     return response.status(500).send();
   }
 };
@@ -49,7 +48,6 @@ export const readEventById = async (request, response) => {
     });
     return response.status(200).json(event);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -73,7 +71,6 @@ export const createEvent = async (request, response) => {
 
     return response.status(201).json(event);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -99,7 +96,6 @@ export const updateEvent = async (request, response) => {
 
     return response.status(200).json(event);
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
@@ -116,7 +112,6 @@ export const deleteEvent = async (request, response) => {
 
     return response.status(204).send();
   } catch (error) {
-    console.log(error);
     return response.status(500).json({ error: "Internal server error" });
   }
 };
