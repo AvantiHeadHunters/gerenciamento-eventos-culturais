@@ -1,14 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-    <h1>Descrição</h1>
+<h1>Gerenciamento Eventos Culturais</h1>
+<h2>Descrição</h2>
     <p>Esta aplicação consiste em um cadastro de eventos Culturais, onde é visado a criação de uma plataforma robusta para o gerenciamento de eventos. A plataforma oferecerá aos organizadores de eventos a capacidade de criar e listar seus eventos de maneira eficiente. Além disso, proporcionará aos participantes a oportunidade de explorar, pesquisar e filtrar eventos com base em critérios específicos como categorias, locais e datas.</p>
-    <h1><strong>Funcionalidades</strong></h1>
+<h2><strong>Funcionalidades</strong></h2>
     <ul>
         <li>Criar eventos, autenticação</li>
         <li>Listar seus eventos</li>
         <li>Filtrar eventos</li>
     </ul>
-    <h1><strong>Tecnologias e ferramentas</strong></h1>
+<h2><strong>Tecnologias e ferramentas</strong></h2>
     <ul>
         <li>Express</li>
         <li>Node.js</li>
@@ -17,7 +16,7 @@
         <li>Prisma</li>
         <li>Insomnia</li>
     </ul>
-    <h1><strong>Primeiros passos</strong></h1>
+<h2><strong>Primeiros passos</strong></h2>
     <ol>
         <li>Clone o repositório em sua máquina rodando o seguinte comando:</li>
         <pre><code>git clone https://github.com/AvantiHeadHunters/gerenciamento-eventos-culturais.git</code></pre>
@@ -37,11 +36,11 @@
         <pre><code>npm start</code></pre>
         <li>Faça as requisições HTTP através da ferramenta de gestão de bancos de dados, se atentando às necessidades de autenticação e autorização de cada rota.</li>
     </ol>
-    <h1><strong>Diagrama de Relacionamento</strong></h1>
+<h2><strong>Diagrama de Relacionamento</strong></h2>
     <img src="DER.png" alt="Imagem do diagrama de Relacionamento">
-    <h1><strong>Rotas</strong></h1>
+<h2><strong>Rotas</strong></h2>
     <p>Utilizando o Insomnia para fazer as requisições <strong>HTTP</strong>, abaixo estará listado as rotas e metodos para cada requisição.</p>
-    <h2>Rotas de Usuário</h2>
+<h3>Rotas de Usuário</h3>
     <table>
         <thead>
             <tr>
@@ -90,7 +89,7 @@
             </tr>
         </tbody>
     </table>
-    <h2>Rotas de Eventos</h2>
+<h3>Rotas de Eventos</h3>
     <table>
         <thead>
             <tr>
@@ -133,7 +132,7 @@
             </tr>
         </tbody>
     </table>
-    <h2>Rotas de Locais</h2>
+<h3>Rotas de Locais</h3>
     <table>
         <thead>
             <tr>
@@ -176,7 +175,7 @@
             </tr>
         </tbody>
     </table>
-    <h2>Rotas de Categorias</h2>
+<h3>Rotas de Categorias</h3>
     <table>
         <thead>
             <tr>
@@ -219,4 +218,3 @@
             </tr>
         </tbody>
     </table>
-</html>
