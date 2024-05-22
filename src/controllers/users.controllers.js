@@ -2,7 +2,7 @@ import { prismaClient } from "../database/prisma.client.js";
 import bcrypt from "bcrypt";
 
 export const createUser = async (request, response) => {
-  const { name, email, password, isAdmin } = request.body;
+  const { name, email, password, isAdmin, image } = request.body;
 
   try {
     const cryptPass = bcrypt.hashSync(password, 10);
@@ -13,6 +13,7 @@ export const createUser = async (request, response) => {
         email,
         password: cryptPass,
         isAdmin,
+        image
       },
       select: {
         id: true,
@@ -20,6 +21,7 @@ export const createUser = async (request, response) => {
         email: true,
         password: false,
         isAdmin: true,
+        image: true
       },
     });
 
@@ -38,6 +40,7 @@ export const readAllUsers = async (_request, response) => {
         email: true,
         password: false,
         isAdmin: true,
+        image: true
       },
     });
 
@@ -65,7 +68,7 @@ export const readUserById = async (request, response) => {
 export const updateUser = async (request, response) => {
   try {
     const { id } = request.params;
-    const { name, email, password, isAdmin } = request.body;
+    const { name, email, password, isAdmin, image } = request.body;
 
     const cryptPass = bcrypt.hashSync(password, 10);
 
@@ -86,6 +89,7 @@ export const updateUser = async (request, response) => {
         email,
         password: cryptPass,
         isAdmin,
+        image
       },
       select: {
         id: true,
@@ -93,6 +97,7 @@ export const updateUser = async (request, response) => {
         email: true,
         password: false,
         isAdmin: true,
+        image: true
       },
     });
 

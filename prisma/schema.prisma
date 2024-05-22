@@ -12,6 +12,7 @@ model Event {
   name        String   @db.VarChar(255)
   description String   @db.VarChar(512)
   date        DateTime
+  image       String
   category_id Int?
   location_id Int?
   user_id     Int
@@ -27,6 +28,7 @@ model Category {
   id          Int     @id @default(autoincrement())
   name        String  @db.VarChar(255)
   description String? @db.VarChar(512)
+  image       String
 
   event Event[]
 
@@ -41,6 +43,7 @@ model Location {
   city      String  @db.VarChar(255)
   state     State   @default(AC)
   link_maps String? @db.VarChar(300)
+  image     String
 
   event Event[]
 
@@ -53,6 +56,7 @@ model User {
   email    String  @unique @db.VarChar(200)
   password String  @db.VarChar(300)
   isAdmin  Boolean @default(false)
+  image    String
 
   event Event[]
 

@@ -42,6 +42,7 @@ export const readEventById = async (request, response) => {
             address: true,
             city: true,
             state: true,
+            image: true,
           },
         },
       },
@@ -54,7 +55,7 @@ export const readEventById = async (request, response) => {
 
 export const createEvent = async (request, response) => {
   try {
-    const { name, description, date, locationId, categoryId, userId } =
+    const { name, description, date, locationId, categoryId, userId, image } =
       request.body;
     const isoDate = new Date(date).toISOString();
 
@@ -66,6 +67,7 @@ export const createEvent = async (request, response) => {
         location_id: Number(locationId),
         category_id: Number(categoryId),
         user_id: Number(userId),
+        image,
       },
     });
 
@@ -78,7 +80,8 @@ export const createEvent = async (request, response) => {
 export const updateEvent = async (request, response) => {
   try {
     const { id } = request.params;
-    const { name, description, date, locationId, categoryId } = request.body;
+    const { name, description, date, locationId, categoryId, image } =
+      request.body;
     const isoDate = new Date(date).toISOString();
 
     const event = await prismaClient.event.update({
@@ -91,6 +94,7 @@ export const updateEvent = async (request, response) => {
         date: isoDate,
         location_id: Number(locationId),
         category_id: Number(categoryId),
+        image,
       },
     });
 

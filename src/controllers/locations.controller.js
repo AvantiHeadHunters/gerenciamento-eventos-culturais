@@ -26,7 +26,8 @@ export const readLocationById = async (request, response) => {
 
 export const createLocation = async (request, response) => {
   try {
-    const { name, address, zipCode, city, state, linkMaps } = request.body;
+    const { name, address, zipCode, city, state, linkMaps, image } =
+      request.body;
 
     const location = await prismaClient.location.create({
       data: {
@@ -36,6 +37,7 @@ export const createLocation = async (request, response) => {
         city,
         state,
         link_maps: linkMaps,
+        image,
       },
     });
 
@@ -48,7 +50,8 @@ export const createLocation = async (request, response) => {
 export const updateLocation = async (request, response) => {
   try {
     const { id } = request.params;
-    const { name, address, zipCode, city, state, linkMaps } = request.body;
+    const { name, address, zipCode, city, state, linkMaps, image } =
+      request.body;
 
     const location = await prismaClient.location.update({
       where: {
@@ -61,6 +64,7 @@ export const updateLocation = async (request, response) => {
         city,
         state,
         link_maps: linkMaps,
+        image,
       },
     });
 

@@ -27,12 +27,13 @@ export const readCategoryById = async (request, response) => {
 
 export const createCategory = async (request, response) => {
   try {
-    const { name, description } = request.body;
+    const { name, description, image } = request.body;
 
     const category = await prismaClient.category.create({
       data: {
         name,
         description,
+        image
       },
     });
 
@@ -45,7 +46,7 @@ export const createCategory = async (request, response) => {
 export const updateCategory = async (request, response) => {
   try {
     const { id } = request.params;
-    const { name, description } = request.body;
+    const { name, description, image } = request.body;
 
     const category = await prismaClient.category.update({
       where: {
@@ -54,6 +55,7 @@ export const updateCategory = async (request, response) => {
       data: {
         name,
         description,
+        image
       },
     });
 

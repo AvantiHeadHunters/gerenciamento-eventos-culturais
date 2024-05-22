@@ -28,6 +28,8 @@ export const sign = async (request, response) => {
       token: token,
       userId: user.id,
       email: user.email,
+      name: user.name,
+      image: user.image,
       isAdmin: user.isAdmin,
     });
   } catch (error) {
