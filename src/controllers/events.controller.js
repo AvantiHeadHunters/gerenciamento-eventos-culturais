@@ -2,29 +2,29 @@ import { prismaClient } from "../database/prisma.client.js";
 
 export const readAllEvents = async (request, response) => {
   try {
-    const { category_id, location_id, date } = request.query;
+    const { category_id, location_id, date, name } = request.query;
+    const where = {
+      category_id: Number(category_id) || undefined,
+      location_id: Number(location_id) || undefined,
+    };
 
     if (date) {
-      const isoDate = new Date(date).toISOString();
-
-      const events = await prismaClient.event.findMany({
-        where: {
-          category_id: Number(category_id) || undefined,
-          location_id: Number(location_id) || undefined,
-          date: isoDate,
-        },
-      });
-      return response.status(200).json(events);
-    } else {
-      const events = await prismaClient.event.findMany({
-        where: {
-          category_id: Number(category_id) || undefined,
-          location_id: Number(location_id) || undefined,
-        },
-      });
-      return response.status(200).json(events);
+      where.date = new Date(date).toISOString();
     }
+
+    if (name) {
+      where.name = {
+        contains: name,
+        mode: "insensitive",
+      };
+    }
+
+    const events = await prismaClient.event.findMany({
+      where,
+    });
+    return response.status(200).json(events);
   } catch (error) {
+    console.log(error);
     return response.status(500).send();
   }
 };
